@@ -15,6 +15,7 @@ args = parser.parse_args()
 
 for i in range(1, DEFAULT_MAX_HOPS + 1):
     sport_list = [random.randint(1, 65535) for _ in range(3)]
+    pre_strs = ["{}".format(i).ljust(5, " ") if _ == 0 else "".ljust(5, " ") for _ in range(3)]
     route_ips = []
     cost_times = []
     for repeat in range(3):
@@ -26,7 +27,6 @@ for i in range(1, DEFAULT_MAX_HOPS + 1):
         route_ips.append(answer.src if answer is not None else None)
         cost_times.append(end_time - start_time)
     for repeat in range(3):
-        print("{} {} ".format(route_ips[repeat], cost_times[repeat]), end="")
-    print("")
+        print("{} {} {:.5f}ms ".format(pre_strs[repeat], route_ips[repeat], cost_times[repeat] * 1000))
     if args.dest in route_ips:
         break
