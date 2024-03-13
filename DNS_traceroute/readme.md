@@ -6,6 +6,8 @@ We have two versions: dns-traceroute implemented in Go and the one implemented i
 
 `go run main.go  --dest=1.1.1.1 --qname=www.baidu.com`
 
+If there are some packet sniffers on the network path that preemptively respond to DNS messages ( without dropping the original packet), then some of the messages will trigger both ICMP timeout messages and DNS responses.
+
 ```
 listen icmp on any
 listen dns on any
@@ -24,6 +26,7 @@ Result:
 7   162.158.84.53 (162.158.84.53)  8.276111ms
     172.70.240.3 (172.70.240.3)  14.117541ms
 8   172.69.148.3 (172.69.148.3)  5.556383ms
+The following icmp time out messages match the Dns Response
 ```
 
 
